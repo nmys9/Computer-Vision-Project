@@ -1,0 +1,63 @@
+{% extends "base.html" %} {% block body %}
+<style>
+  .nav {
+    width: 100%;
+    background-color: #fff;
+  }
+  .nav ul {
+    display: flex;
+    list-style: none;
+    margin-left: 50px;
+  }
+  .nav ul li {
+    padding: 15px;
+    margin: 10px;
+    border-radius: 50px;
+  }
+  .nav ul li:hover {
+    background-color: #eee;
+  }
+  .nav ul li a {
+    padding: 5px;
+    text-decoration: none;
+    color: #000980;
+  }
+</style>
+<div class="nav">
+  <ul>
+    <li><a href="{{url_for('home')}}">Home</a></li>
+    <li><a href="{{url_for('image_stitching')}}">Image Stitching</a></li>
+    <li><a href="{{url_for('edge_detection')}}">Edge Detection</a></li>
+    <li>
+      <a href="{{url_for('human_object_detection')}}"
+        >AI-based object detection</a
+      >
+    </li>
+  </ul>
+</div>
+
+<div class="page object">
+  <h1>AI-based Human Object Detection</h1>
+  <form method="POST" enctype="multipart/form-data">
+    <label for="input-img">Choose another image</label>
+    <input
+      class="input"
+      type="file"
+      name="inputImage"
+      accept=".txt,.pdf,.png,.jpg,.jpeg,.gif"
+      onchange="readURL(this);"
+      id="input-img"
+      required
+      multiple
+    />
+    <button type="submit">Process</button>
+  </form>
+  {% if image%}
+  <img
+    src="{{ url_for('static', filename='uploads/'+image) }}"
+    alt="Human Objcet Detection Image"
+  />
+  {% endif %}
+</div>
+
+{% endblock body %}

@@ -1,0 +1,83 @@
+{% extends "base.html" %} {% block body %}
+<style>
+  .nav {
+    width: 100%;
+    background-color: #fff;
+  }
+  .nav ul {
+    display: flex;
+    list-style: none;
+    margin-left: 50px;
+  }
+  .nav ul li {
+    padding: 15px;
+    margin: 10px;
+    border-radius: 50px;
+  }
+  .nav ul li:hover {
+    background-color: #eee;
+  }
+  .nav ul li a {
+    padding: 5px;
+    text-decoration: none;
+    color: #000980;
+  }
+</style>
+<div class="nav">
+  <ul>
+    <li><a href="{{url_for('home')}}">Home</a></li>
+    <li><a href="{{url_for('image_stitching')}}">Image Stitching</a></li>
+    <li><a href="{{url_for('edge_detection')}}">Edge Detection</a></li>
+    <li>
+      <a href="{{url_for('human_object_detection')}}"
+        >AI-based object detection</a
+      >
+    </li>
+  </ul>
+</div>
+<div class="page stitching">
+  <h1>Image Stitching</h1>
+  <form method="POST" enctype="multipart/form-data">
+    <label for="input-img">Upload</label>
+    <input
+      class="input"
+      type="file"
+      name="file"
+      accept=".txt,.pdf,.png,.jpg,.jpeg,.gif"
+      id="input-img"
+      required
+      multiple
+    />
+    <button type="submit">Process</button>
+  </form>
+  <div class="imgs">
+    <div>
+      {% for image in filenames %}
+      <img
+        src="{{ url_for('static', filename='uploads/'+image) }}"
+        alt="{{ n }}"
+        class="small-image"
+      />
+      {% endfor %}
+    </div>
+
+    {% if result_image %}
+    <p class="p">Result Image Stitching</p>
+    <div class="image-container">
+      <img
+        src="{{ url_for('static', filename='uploads/'+result_image) }}"
+        alt="Processed Image"
+        class="large-image"
+      />
+    </div>
+    {% endif %}
+  </div>
+  <div class="links">
+    <a href="{{ url_for('edge_detection') }}" class="btn">Edge Detection</a>
+
+    <a href="{{ url_for('human_object_detection') }}" class="btn"
+      >Human Object Detection</a
+    >
+  </div>
+</div>
+{% endblock body %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %} {% block body %}
+<style>
+  .nav {
+    width: 100%;
+    background-color: #fff;
+  }
+  .nav ul {
+    display: flex;
+    list-style: none;
+    margin-left: 50px;
+  }
+  .nav ul li {
+    padding: 15px;
+    margin: 10px;
+    border-radius: 50px;
+  }
+  .nav ul li:hover {
+    background-color: #eee;
+  }
+  .nav ul li a {
+    padding: 5px;
+    text-decoration: none;
+    color: #000980;
+  }
+</style>
+<div class="nav">
+  <ul>
+    <li><a href="{{url_for('home')}}">Home</a></li>
+    <li><a href="{{url_for('image_stitching')}}">Image Stitching</a></li>
+    <li><a href="{{url_for('edge_detection')}}">Edge Detection</a></li>
+    <li>
+      <a href="{{url_for('human_object_detection')}}"
+        >AI-based object detection</a
+      >
+    </li>
+  </ul>
+</div>
+<div class="page detection">
+  <h1>Edge Detection</h1>
+  <form method="POST" enctype="multipart/form-data" action="/edge_detection">
+    <input
+      type="range"
+      id="rangeInput"
+      name="rangeInput"
+      min="0"
+      max="30"
+      step="1"
+      value="15"
+      class="range"
+    />
+    <button type="submit">Submit</button>
+  </form>
+
+  {% if canny%}
+  <p>Canny Text</p>
+  <img
+    src="{{ url_for('static', filename='uploads/'+canny) }}"
+    alt="canny Image"
+  />
+  {% endif %} {% if dog %}
+  <p>DoG Text</p>
+  <img src="{{ url_for('static', filename='uploads/'+dog) }}" alt="DoG Image" />
+  {% endif %} {% if morpho %}
+  <p>Morpho Text</p>
+  <img
+    src="{{ url_for('static', filename='uploads/'+morpho) }}"
+    alt="morpho Image"
+  />
+  {% endif %}
+
+  <div class="links">
+    <a href="{{ url_for('human_object_detection') }}" class="btn"
+      >Human Object Detection</a
+    >
+  </div>
+</div>
+{% endblock body %}
